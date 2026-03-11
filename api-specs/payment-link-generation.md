@@ -1,11 +1,11 @@
-# Especificação de Geração de Link de Pagamento via Gateway FInee e Webhook de Confirmação
+# Especificação de Geração de Link de Pagamento via Gateway Finee e Webhook de Confirmação
 
 ## Descrição Geral
-Esta funcionalidade permite gerar links de pagamento para cobranças específicas (ex: recarga de MVNO) utilizando o gateway de pagamentos próprio da Voalle, o FInee. O ERP Voalle disponibiliza o checkout, e após a confirmação do pagamento, dispara um webhook para informar o recebimento. O valor é creditado apenas após confirmação, e o evento é registrado no contrato do cliente.
+Esta funcionalidade permite gerar links de pagamento para cobranças específicas (ex: recarga de MVNO) utilizando o gateway de pagamentos próprio da Voalle, o Finee. O ERP Voalle disponibiliza o checkout, e após a confirmação do pagamento, dispara um webhook para informar o recebimento. O valor é creditado apenas após confirmação, e o evento é registrado no contrato do cliente.
 
 ## Caso de Uso: Recarga de MVNO
 - O cliente solicita recarga de crédito para seu plano MVNO.
-- O sistema solicita ao ERP Voalle a geração de um link de checkout via FInee.
+- O sistema solicita ao ERP Voalle a geração de um link de checkout via Finee.
 - O cliente paga diretamente no gateway da Voalle.
 - Após pagamento confirmado, o ERP Voalle dispara webhook, creditando o valor e registrando o evento no contrato.
 
@@ -32,8 +32,8 @@ Esta funcionalidade permite gerar links de pagamento para cobranças específica
 - **Resposta**:
   ```json
   {
-    "checkoutUrl": "https://checkout.voalle.com/finee/pay/abc123",
-    "paymentId": "ID único da cobrança gerado pelo FInee",
+    "checkoutUrl": "https://checkout.voalle.com/Finee/pay/abc123",
+    "paymentId": "ID único da cobrança gerado pelo Finee",
     "expiresAt": "Data de expiração do link"
   }
   ```
@@ -64,7 +64,7 @@ Esta funcionalidade permite gerar links de pagamento para cobranças específica
   - Enviar notificação ou atualizar status.
 
 ## Requisitos Técnicos
-- **Gateway FInee**: Utilizar o checkout fornecido pela Voalle, sem integração externa.
+- **Gateway Finee**: Utilizar o checkout fornecido pela Voalle, sem integração externa.
 - **Segurança**: Webhooks com token de autenticação para validar origem.
 - **Idempotência**: Garantir que webhooks duplicados não processem pagamentos múltiplas vezes (usar paymentId como chave).
 - **Registro**: Todo pagamento confirmado gera um evento no contrato com tipo "Pagamento Recebido".
@@ -81,5 +81,5 @@ Esta funcionalidade permite gerar links de pagamento para cobranças específica
 ## Notas
 - Coordenar com a equipe da Voalle para configurar o webhook e obter credenciais.
 - Testar em ambiente de homologação.
-- Adaptar URLs e campos conforme documentação oficial do FInee.
+- Adaptar URLs e campos conforme documentação oficial do Finee.
 - Usar o campo `metadata.type` para diferençar tipos de serviços (recarga_mvno, adésão_plano, complemento, etc).
